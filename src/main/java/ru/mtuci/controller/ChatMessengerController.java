@@ -1,6 +1,5 @@
 package ru.mtuci.controller;
 
-import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +14,6 @@ import ru.mtuci.service.IAuthenticationService;
 import ru.mtuci.service.IChatService;
 import ru.mtuci.service.IMessageService;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +31,13 @@ public class ChatMessengerController {
     @Autowired
     IMessageService messageService;
 
-    @GetMapping("test")
-    public String test(){
-        return "work";
+    @GetMapping("add-user")
+    public Status addUser(@RequestParam(required = true, defaultValue = "") String login,
+                        @RequestParam(required = true, defaultValue = "") String password){
+        if(login.equals("") || password.equals("")){
+            return new Status("error");
+        }
+        return new Status(authenticationService.addNewUser(login, password));
     }
 
     @GetMapping("get-token")
@@ -133,5 +135,6 @@ public class ChatMessengerController {
 
         return new Status(chatService.addUserToChat(login, chatid, targetLogin));
     }
+
 
 }

@@ -23,12 +23,12 @@ public interface IChatMessengerDB {
     String SELECT_MESSAGES_BY_LOGIN_AND_TIME_AND_CHATID = "SELECT * FROM message " +
             "WHERE chat_id IN (SELECT chat_id FROM messengeruser_chat_compound WHERE login = ? AND chat_id = ?) AND time > ?";
     String INSERT_INTO_MESSAGE = "INSERT INTO message(login, chat_id, time, message) VALUES (?, ?, ?, ?)";
-
+    String INSERT_INTO_MESSENGERUSER = "INSERT INTO messengeruser(login, password) VALUES (?, ?)";
 
     public String getPasswordHashByLogin(String login);
     public String addSession(String login, String token, String name, LocalDateTime date);
     public String getLoginByToken(String token);
-
+    public String addNewUser(String Login,String Password);
     public List<Chat> getChats(String login);
     public Integer addChat(String name);
     public List<String> getChatMembers(Integer chatId);

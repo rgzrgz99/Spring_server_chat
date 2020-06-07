@@ -30,6 +30,28 @@ public class ChatMessengerDB implements IChatMessengerDB {
     }
 
     @Override
+    public String addNewUser(String login, String password){
+        String res = "error";
+        try{
+
+            PreparedStatement stmt = conn.prepareStatement(INSERT_INTO_MESSENGERUSER);
+
+            stmt.setString(1, login);
+            stmt.setString(2, password);
+
+            int affectedRows = stmt.executeUpdate();
+            if(affectedRows != 0) {
+                res = "ok";
+            }
+
+        } catch (SQLException e){
+            System.out.println(e);
+        }
+
+        return res;
+    }
+
+    @Override
     public String getPasswordHashByLogin(String login) {
         String passwordHash = "error";
         try {

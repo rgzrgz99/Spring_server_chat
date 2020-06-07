@@ -32,4 +32,9 @@ public class AuthenticationService implements IAuthenticationService {
     public String getLoginByToken(String token) {
         return chatMessengerDB.getLoginByToken(token);
     }
+
+    @Override
+    public String addNewUser(String login, String password){
+        return chatMessengerDB.addNewUser(login, password);
+    }
 }
